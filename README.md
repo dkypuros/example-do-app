@@ -14,7 +14,7 @@ Source to image and OC new app sort of does this work below that I did previousl
 
 In OpenShift, you'd typically set up a database as a separate service.
 
-# Podman, Compose, Nodejs, Postgresl - laptop
+**Practices on my laptop first: Podman, Compose, Nodejs, Postgresl - laptop**
 
 ```bash
 
