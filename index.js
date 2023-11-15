@@ -1,32 +1,21 @@
-const Fastify = require('fastify');
-const DB = require('./db');
-
-const api = Fastify({ logger: true });
-
-api.get('/', async () => {
-    return { title: 'Todo List API' };
+// Import the Fastify framework
+const fastify = require('fastify')({
+  logger: true
 });
 
-api.get('/todos', async function listTodos() {
-    const todos = await DB.list();
-    return todos;
+// Define a route
+fastify.get('/', async (request, reply) => {
+  return { hello: 'world' };
 });
 
-api.post('/todos', async function createTodo(request, reply) {
-    const task = request.body.task;
-    await DB.create(task);
-    return reply.code(201).send();
-});
-
-api.addHook('onClose', async () => {
-    await DB.close();
-});
-
-async function serve() {
-    const port = process.env.PORT || 3000;
-    await DB.connect();
-    await api.listen(port, "0.0.0.0");  // Corrected this line
-    api.log.info(`Server is listening on port ${port}`);
-}
-
-serve();
+// Run the server!
+const start = async () => {
+  try {
+    await fastify.listen(3000, '0.0.0.0');
+    fastify.log.info(`server listening on ${fastify.server.address().port}`);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+start();
